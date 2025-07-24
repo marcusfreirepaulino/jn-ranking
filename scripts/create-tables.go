@@ -39,7 +39,7 @@ func createEpisodesTable(db *sql.DB) {
 }
 
 func main() {
-	db, err := sql.Open("sqlite3", "../db/sqlite.db")
+	db, err := sql.Open("sqlite3", "./sqlite.db")
 	if err != nil {
 		log.Fatal(err)
 	}
