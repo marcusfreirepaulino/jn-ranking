@@ -31,10 +31,14 @@ type PodcastThemeDto struct {
 	Name string `json:"name"`
 }
 
-type PodcastGuestDto struct {
-	Name       string `json:"name"`
-	Slug       string `json:"slug"`
+type PodcastGuestMetadataDto struct {
 	GuestPhoto string `json:"guest_photo"`
+}
+
+type PodcastGuestDto struct {
+	Name     string                  `json:"name"`
+	Slug     string                  `json:"slug"`
+	Metadata PodcastGuestMetadataDto `json:"metadata"`
 }
 
 type PodcastCategoriesDto struct {

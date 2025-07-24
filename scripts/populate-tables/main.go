@@ -137,7 +137,7 @@ func insertEpisodes(db *sql.DB, episodes []types.PodcastDataDto) {
 		episodeId, _ := res.LastInsertId()
 
 		for _, guests := range episode.Categories.Guests {
-			upsertParticipantStatement.Exec(guests.Slug, guests.Name, guests.GuestPhoto)
+			upsertParticipantStatement.Exec(guests.Slug, guests.Name, guests.Metadata.GuestPhoto)
 			insertEpisodesParticipantsStatement.Exec(episodeId, guests.Slug)
 		}
 	}
@@ -146,4 +146,6 @@ func insertEpisodes(db *sql.DB, episodes []types.PodcastDataDto) {
 	if err != nil {
 		log.Fatalf("Error at insertEpisodes: %v", err)
 	}
+
+	log.Print("Succesfully populated database.")
 }
