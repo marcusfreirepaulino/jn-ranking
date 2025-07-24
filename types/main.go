@@ -6,7 +6,14 @@ type EpisodeModel struct {
 	Id          int
 	Title       string
 	Slug        string
+	Episode     string
 	ReleaseDate string
+}
+
+type ParticipantModel struct {
+	Slug             string
+	Name             string
+	ParticipantPhoto *string
 }
 
 // Jovem Nerd API Dto's
@@ -20,17 +27,23 @@ type PodcastMetadataDto struct {
 	PodcastEpisode string `json:"podcast_episode"`
 }
 
-type PodcastTheme struct {
+type PodcastThemeDto struct {
 	Name string `json:"name"`
 }
 
-type PodcastGuest struct {
-	Name string `json:"name"`
+type PodcastGuestMetadataDto struct {
+	GuestPhoto string `json:"guest_photo"`
+}
+
+type PodcastGuestDto struct {
+	Name     string                  `json:"name"`
+	Slug     string                  `json:"slug"`
+	Metadata PodcastGuestMetadataDto `json:"metadata"`
 }
 
 type PodcastCategoriesDto struct {
-	Themes []PodcastTheme `json:"podcast_theme"`
-	Guests []PodcastGuest `json:"podcast_guest"`
+	Themes []PodcastThemeDto `json:"podcast_theme"`
+	Guests []PodcastGuestDto `json:"podcast_guest"`
 }
 
 type PodcastDataDto struct {
