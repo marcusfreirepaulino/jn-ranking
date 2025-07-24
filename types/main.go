@@ -26,6 +26,7 @@ type PodcastTheme struct {
 
 type PodcastGuest struct {
 	Name string `json:"name"`
+	Slug string `json:"slug"`
 }
 
 type PodcastCategoriesDto struct {

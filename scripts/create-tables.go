@@ -10,7 +10,7 @@ import (
 func createParticipantsTable(db *sql.DB) {
 	sqlStatement := `
 		CREATE TABLE IF NOT EXISTS participants (
-			id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT
+			slug TEXT PRIMARY KEY,
 			name TEXT NOT NULL
 		);
 	`
@@ -25,9 +25,9 @@ func createParticipantsTable(db *sql.DB) {
 func createEpisodesTable(db *sql.DB) {
 	sqlStatement := `
 		CREATE TABLE IF NOT EXISTS episodes (
-			id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-			title TEXT NOT NULL
-			slug TEXT NOT NULL
+			id INTEGER PRIMARY KEY AUTOINCREMENT,
+			title TEXT NOT NULL,
+			slug TEXT NOT NULL,
 			release_date TEXT
 		);
 	`
@@ -38,6 +38,24 @@ func createEpisodesTable(db *sql.DB) {
 	log.Println("Table 'episodes' created.")
 }
 
+func createEpisodesParticipantsTable(db *sql.DB) {
+	sqlStatement := `
+		CREATE TABLE IF NOT EXISTS episodes_participants (
+			id INTEGER PRIMARY KEY AUTOINCREMENT,
+			episode_id INTEGER NOT NULL,
+			participant_key INTEGER NOT NULL,
+			FOREIGN KEY(episode_id) REFERENCES episodes(id),
+			FOREIGN KEY(participant_key) REFERENCES participants(slug)
+		);
+	`
+
+	_, err := db.Exec(sqlStatement)
+	if err != nil {
+		log.Fatalf("Failed to create episodes_participants table: %v", err)
+	}
+	log.Println("Table 'episodes_participants' created.")
+}
+
 func main() {
 	db, err := sql.Open("sqlite3", "./sqlite.db")
 	if err != nil {
@@ -46,6 +64,6 @@ func main() {
 	defer db.Close()
 
 	createParticipantsTable(db)
-
 	createEpisodesTable(db)
+	createEpisodesParticipantsTable(db)
 }
