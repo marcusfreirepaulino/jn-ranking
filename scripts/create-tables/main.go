@@ -11,7 +11,8 @@ func createParticipantsTable(db *sql.DB) {
 	sqlStatement := `
 		CREATE TABLE IF NOT EXISTS participants (
 			slug TEXT PRIMARY KEY,
-			name TEXT NOT NULL
+			name TEXT NOT NULL,
+			participant_photo TEXT
 		);
 	`
 
@@ -28,6 +29,7 @@ func createEpisodesTable(db *sql.DB) {
 			id INTEGER PRIMARY KEY AUTOINCREMENT,
 			title TEXT NOT NULL,
 			slug TEXT NOT NULL,
+			episode TEXT NOT NULL,
 			release_date TEXT
 		);
 	`
